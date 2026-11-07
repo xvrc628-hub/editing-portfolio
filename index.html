@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Frameloom</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top" id="top">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="#home" aria-label="Frameloom, back to the top">
+        <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><path d="M5 21 C12 21 10 7 17 7 L23 7" fill="none" stroke="#FFC247" stroke-width="2" stroke-linecap="round"/><rect x="3" y="19" width="4" height="4" transform="rotate(45 5 21)" fill="#FFC247"/><rect x="21" y="5" width="4" height="4" transform="rotate(45 23 7)" fill="#FFC247"/></svg>
+        <span>Frameloom</span>
+      </a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#styles">Styles</a>
+        <a href="#presets">Presets</a>
+        <a href="#blog">Blog</a>
+        <a href="#feedback">Comments</a>
+      </nav>
+    </div>
+    <div class="trackrow">
+      <span class="tc" id="tc" aria-hidden="true">0:00:00:00</span>
+      <div class="track" aria-hidden="true">
+        <i class="dia"></i><i class="dia"></i><i class="dia"></i><i class="dia"></i>
+        <i class="playhead" id="playhead"></i>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Keyframe editor for video and motion</span>
+      <h1>Shape the <em>curve</em> between two keyframes.</h1>
+      <p class="lead">Frameloom is a motion editor for layered video, shapes and text. Set a keyframe, set another, then draw how the movement travels between them. The preview runs the same easing curve a layer would use.</p>
+      <div class="cta">
+        <a class="btn primary" href="#presets">Browse presets</a>
+        <a class="btn" href="#blog">Read the blog</a>
+      </div>
+    </div>
+
+    <div class="comp panel">
+      <div class="comp-head">
+        <span class="eyebrow">Comp 1 · 1920×1080 · 30 fps</span>
+        <span class="tcode" id="stageTc">0:00:00:00</span>
+      </div>
+      <canvas class="stage" id="stage" role="img" aria-label="Preview of a ball moving between two keyframes along the easing curve shown below"></canvas>
+      <div class="comp-ctl">
+        <button class="btn small" id="playBtn" type="button">Pause</button>
+        <label class="sr" for="scrub">Scrub the preview</label>
+        <input id="scrub" type="range" min="0" max="1000" value="0">
+      </div>
+      <div class="comp-lower">
+        <svg id="curve" viewBox="0 0 240 260" role="group" aria-label="Easing curve editor. Two draggable control points.">
+          <rect class="box" x="30" y="70" width="180" height="120"/>
+          <path class="ref" d="M30 190 L210 70"/>
+          <text x="30" y="204">0</text><text x="204" y="204">1</text>
+          <text x="10" y="193">0</text><text x="10" y="73">1</text>
+          <line class="hl" id="h1"/><line class="hl" id="h2"/>
+          <path class="cp" id="cpath"/>
+          <circle class="pt" id="p1" r="8" tabindex="0" role="slider" aria-label="First control point"/>
+          <circle class="pt" id="p2" r="8" tabindex="0" role="slider" aria-label="Second control point"/>
+        </svg>
+        <div class="curve-side">
+          <span class="eyebrow">Easing</span>
+          <div class="chips" id="easeChips"></div>
+          <div class="bez"><code id="bezOut">cubic-bezier(0.65, 0, 0.35, 1)</code><button class="btn small" id="copyBez" type="button">Copy</button></div>
+          <p class="hint">Drag the two handles, or focus one and use the arrow keys. The ghost frames show how far the ball moves each step.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="styles">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kf"><span class="kf-time">0:00:00:00</span> Styles</p>
+      <h2>Grade a frame in one move</h2>
+      <p>A style is a saved look: filters, color overlays and texture bundled under one name. Pick one, then drag the intensity to see what it changes.</p>
+    </div>
+    <div class="styles-grid">
+      <div>
+        <div class="scene" id="scene" role="img" aria-label="Sample frame, a sunset over hills, with the selected style applied">
+          <div class="art" id="art">
+            <div class="sun"></div><div class="hill a"></div><div class="hill b"></div>
+            <div class="scene-title" id="sceneTitle">LAST LIGHT</div>
+          </div>
+          <div class="layer" id="ov"></div>
+          <div class="layer scan" id="scan"></div>
+          <div class="layer grain" id="grain"></div>
+          <div class="layer vig" id="vig"></div>
+        </div>
+        <div class="scene-ctl">
+          <label for="intensity">Intensity</label>
+          <input id="intensity" type="range" min="0" max="100" value="80">
+          <output id="intensityOut" for="intensity">80%</output>
+        </div>
+        <dl class="recipe panel" id="recipe"></dl>
+      </div>
+      <div class="looks" id="looks" role="group" aria-label="Styles"></div>
+    </div>
+  </div>
+</section>
+
+<section id="presets">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kf"><span class="kf-time">0:00:00:00</span> Presets</p>
+      <h2>Motion presets, ready to copy</h2>
+      <p>Each preset is a set of keyframes plus a duration and an easing curve. Filter by where the motion happens in a layer's life, then copy the JSON into your project.</p>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Filter presets by category"></div>
+    <div class="preset-grid" id="presetGrid"></div>
+  </div>
+</section>
+
+<section id="blog">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kf"><span class="kf-time">0:00:00:00</span> Blog</p>
+      <h2>Notes from the timeline</h2>
+      <p>Short write-ups on motion, timing and building the editor.</p>
+    </div>
+    <div class="blog">
+      <div class="plist" id="plist"></div>
+      <article class="reader" id="reader" aria-live="polite"></article>
+    </div>
+  </div>
+</section>
+
+<section id="feedback">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kf"><span class="kf-time">0:00:00:00</span> Comments</p>
+      <h2>Comments, pinned to a frame</h2>
+      <p>Leave feedback with a timecode, the way you would on a review cut. Sort by newest or by position in the cut.</p>
+    </div>
+    <div class="fb">
+      <form class="panel" id="cform" novalidate>
+        <div class="field">
+          <label for="cname">Name</label>
+          <input id="cname" name="name" maxlength="40" autocomplete="nickname" placeholder="Your name">
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="ctc">Timecode</label>
+            <input id="ctc" name="tc" inputmode="numeric" maxlength="5" placeholder="0:12" value="0:00">
+          </div>
+          <div class="field">
+            <label for="cplace">Applies to</label>
+            <input id="cplace" value="Whole cut" readonly aria-readonly="true">
+          </div>
+        </div>
+        <div class="field">
+          <label for="cmsg">Comment</label>
+          <textarea id="cmsg" name="msg" maxlength="400" placeholder="What did you notice at this moment?"></textarea>
+        </div>
+        <p class="err" id="cerr" role="alert"></p>
+        <button class="btn primary" type="submit">Post comment</button>
+      </form>
+      <div>
+        <div class="cm-head">
+          <h3 id="cCount">Comments</h3>
+          <div class="chips" role="group" aria-label="Sort comments">
+            <button class="chip" type="button" id="sortNew" aria-pressed="true">Newest</button>
+            <button class="chip" type="button" id="sortTc" aria-pressed="false">By timecode</button>
+          </div>
+        </div>
+        <p class="note">Entries marked Example are placeholders. Comments you post are saved in this browser only.</p>
+        <ul class="cm-list" id="cList"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Frameloom portfolio. Built with HTML, CSS and JavaScript, no frameworks.</span>
+    <a href="#home">Back to 0:00:00:00</a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
